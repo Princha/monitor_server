@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+          "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+    <title>Terminal</title>
+    <meta name="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="./javascripts/jquery-3.2.0.min.js"></script>
+    <script type="text/javascript" src="./javascripts/jquery.console.js"></script>
+    <script type="text/javascript" src="./javascripts/allshell.js"></script>
+    <link rel="stylesheet" type="text/css" href="./stylesheets/styles.css">
+    <!-- Everything beyond this point is user-customized -->
+    <script type="text/javascript">
+
+    </script>
+    <style type="text/css" media="screen">
+        /*#allshellLeft {
+            position: fixed;
+            top: 85px;
+            left: 0px;
+            width: 300px;
+            height: 100%;
+
+        }*/
+        #allshellLeft {
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+        }
+        #allshell_table{
+            /*margin:0 auto;*/
+            width: 300px;
+            /*height: 100%;*/
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="./stylesheets/allshell.css">
+</head>
+
+<body>
+    <noscript>
+        <p>
+            <strong>Please enable JavaScript or upgrade your browser.</strong>
+        </p>
+    </noscript>
+    <h1>批量ssh</h1>
+    <div id="allshell_param" style=" margin:0 auto; display: flex;flex-direction: row;display:none">
+        <p >server :</p>
+        <input  id="allshell_server" value="192.168.31.100"></input>
+        <p >cmd :</p>
+        <textarea style="width:600px;height:100px" id="allshell_cmd" value="192.168.31.100"></textarea>
+        <button id="allshell_button" onclick="onbutton()">run</button>
+    </div>
+    <div id="allshellLeft">
+        <div>
+        <table id="allshell_table" >
+                <tr>
+                    <th>操作状态</th>
+                     <th>名字</th>
+                     <th>IP地址</th>
+                </tr>
+        </table>
+        </div>
+        <div class="console1" style="height:100%">
+    </div>
+   
+</body>
+
+</html>

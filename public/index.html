@@ -1,0 +1,72 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>监控</title>
+    <link rel="stylesheet" type="text/css" href="./stylesheets/styles.css">
+    <script type="text/javascript" src="./javascripts/jquery-3.2.0.min.js"></script>
+    <script type="text/javascript" src="./javascripts/table.js"></script>
+    <script type="text/javascript" src="./javascripts/groups.js"></script>
+    <script type="text/javascript" src="./javascripts/index.js"></script>
+    <script type="text/javascript" src="./javascripts/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./stylesheets/jquery-ui.min.css">
+    <script type="text/javascript" src="./javascripts/socket.io.js"></script>
+</head>
+
+<body>
+    <h1>蓝牙主机管理后台</h1>
+    <div class="frame">
+        <div class="left">
+            <h1>组管理</h1>
+            <div id="groups">
+            </div>
+            <table id="groups_table" style="margin:0 auto">
+                <tr>
+                    <th>组名字</th>
+
+                    <th>操作</th>
+                </tr>
+            </table>
+            <button class="button" style=" margin-right: 50px;float:right;margin-top:20px" onclick="addGroup()">add</button>
+        </div>
+        <div class="right">
+            <div id="Head">
+                <button class="button" onclick="shell(1)">整体更新</button>
+                <button class="button" onclick="add()">添加</button>
+                <button class="button" onclick="shell(0)">All CMD</button>
+            </div>
+            <table id="Table">
+                <tr>
+                    <th>状态</th>
+                    <th>服务器</th>
+                    <th>ip地址</th>
+                    <th>运行时间</th>
+                    <th>CPU使用率</th>
+                    <th>CPU负载</th>
+                    <th>内存使用率</th>
+                    <th>操作</th>
+                </tr>
+                <!--<tr>
+            <td><div id="serviceState"></div></td>
+            <td align="center" id="host">111</td>
+            <td align="center">192.168.1.111</td>
+            <td align="center">15min</td>
+            <td align="center">23%</td>
+            <td align="center">?</td>
+            <td align="center">256M</td>
+            <td><div>
+                <img src="./images/Refresh_000000_25.png" alt="">
+                <img src="./images/Download_000000_25.png" alt="">
+                <img src="./images/Edit_000000_25.png" alt="">
+                <img src="./images/Delete_000000_25.png" alt="">
+            </div></td>
+        </tr>-->
+            </table>
+            <div id="dialog-confirm" title="删除吗？" style="display:none">
+                <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>项目将被永久删除，并且无法恢复。您确定吗？</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

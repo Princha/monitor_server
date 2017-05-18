@@ -1,0 +1,60 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>监控</title>
+    <link rel="stylesheet" type="text/css" href="./stylesheets/styles.css">
+    <script type="text/javascript" src="./javascripts/jquery-3.2.0.min.js"></script>
+    <script type="text/javascript" src="./javascripts/host.js"></script>
+</head>
+
+<body>
+    <h1>蓝牙主机监控</h1>
+    <div id="wrapper" class="host">
+        <form method="get">
+            <fieldset class="block">
+                <legend>设备信息</legend>
+                <dl>
+                    <dt><label class="label">设备名称:</label>
+                        <label class="value" id="device_name"></label></dt>
+
+                    <dt><label class="label">内存:</label>
+                        <label class="value" id="device_memmory"></label></dt>
+
+                    <dt><label class="label">处理器:</label>
+                        <label class="value" id="device_cpu"></label></dt>
+
+                    <dt><label class="label">设备型号:</label>
+                        <label class="value" id="device_model"></label></dt>
+
+                    <dt><label class="label">固件版本:</label>
+                        <label class="value" id="device_version"></label></dt>
+
+                    <dt><label class="label">存储:</label>
+                        <label class="value" id="device_storage"></label></dt>
+
+                    <dt><label class="label">根目录:</label>
+                        <label class="value" id="device_root"></label></dt>
+
+                    <dt><label class="label">根服务:</label>
+                        <label class="value" id="device_url"></label></dt>
+
+                    <dt><label class="label">设备时间:</label>
+                        <label class="value" id="device_time"></label></dt>
+
+                    <dt><label class="label">设备启动时间:</label>
+                        <label class="value" id="device_uptime"></label></dt>
+
+                </dl>
+            </fieldset>
+
+            <fieldset class="block" id="eth_sticky" style="display:none"></fieldset>
+            <fieldset class="block" id="wl_sticky" style="display:none"></fieldset>
+            <fieldset class="block" id="wan_sticky" style="display:none"></fieldset>
+        </form>
+    </div>
+
+    <footer id="footer"></footer>
+</body>
+
+</html>

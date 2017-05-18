@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>监控</title>
+    <link rel="stylesheet" type="text/css" href="./stylesheets/styles.css">
+    <script type="text/javascript" src="./javascripts/jquery-3.2.0.min.js"></script>
+</head>
+
+<script>
+    $(document).ready(function () {
+        console.log(getCookie('current_group'))
+        $('#add_group_item').val(getCookie('current_group'))
+    });
+    function getCookie(name) {
+        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+        if (arr = document.cookie.match(reg))
+            return unescape(arr[2]);
+        else
+            return null;
+    }
+
+</script>
+
+<body>
+    <form action="/group/add" method="post">
+        group name:<br><br>
+        <input id="add_group_item" type="text" name="group_name"  readonly="readonly" value="">
+        <br><br> 蓝牙主机名字:
+        <br><br>
+        <input type="text" name="name" value="">
+        <br><br> 蓝牙主机ip地址:
+        <br><br>
+        <input type="text" name="ip" value="192.168.31.110">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>

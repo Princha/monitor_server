@@ -1,0 +1,47 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>监控</title>
+    <script type="text/javascript" src="./javascripts/jquery-3.2.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./stylesheets/styles.css">
+    <script type="text/javascript" src="./javascripts/edit.js"></script>
+    <script>
+        $(document).ready(function () {
+            const name = getUrlParam('name')
+            $('#edit_group_item').val(decodeUTF8(name))
+        });
+        //获取url中的参数
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
+
+        function encodeUTF8(str) {
+            var temp = "", rs = "";
+            for (var i = 0, len = str.length; i < len; i++) {
+                temp = str.charCodeAt(i).toString(16);
+                rs += "\\u" + new Array(5 - temp.length).join("0") + temp;
+            }
+            return rs;
+        }
+        function decodeUTF8(str) {
+            return str.replace(/(\\u)(\w{4}|\w{2})/gi, function ($0, $1, $2) {
+                return String.fromCharCode(parseInt($2, 16));
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <form action="/groups/updata" method="post">
+        group name:<br><br>
+        <input id="edit_group_item" type="text" name="name" readonly="readonly" value=""> <br><br> group new name:<br><br>
+        <input type="text" name="new_name" value="">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>

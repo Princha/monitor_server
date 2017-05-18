@@ -1,0 +1,26 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>监控</title>
+    <script type="text/javascript" src="./javascripts/jquery-3.2.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./stylesheets/styles.css">
+    <script type="text/javascript" src="./javascripts/edit.js"></script>
+
+</head>
+
+<body>
+    <form action="/group/updata" method="post">
+          group name:<br><br>
+        <input id="edit_group_item" type="text" name="group_name"  readonly="readonly" value="">
+        蓝牙主机名字:<br><br>
+        <input id='edit_name' type="text" name="name" value="">
+        <br><br> 蓝牙主机ip地址:
+        <br><br>
+        <input id='edit_ip' type="text" name="ip" value="192.168.1.110" readonly="readonly">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>

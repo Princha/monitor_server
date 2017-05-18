@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Network Status</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+  <script type="text/javascript" src="./javascripts/jquery-3.2.0.min.js"></script>
+  <script>
+	function OnPageLoad(params) {
+		UpdateInterfaceStatus(params.interfaces);
+		UpdateVersionStatus(params.device || {});
+	}
+
+	function tableLine(clazz, name, value) {
+		return '<dt><label class="label">' + name + ':</label>' +
+			' <label class="value">' + value + '</label></dt>\n';
+	}
+	
+	function UpdateInterfaceStatus(interfaces) {
+		interfaces = interfaces || [{name:"eth0"}];
+		var wlan = {};
+
+		for (var i = 0; i < interfaces.length; i++) {
+			var iterface = interfaces[i] || {};
+			var name = iterface.name || "";
+			var label = "";
+			if (name.startsWith("eth")) {
+				name  = "eth_sticky";
+				label = "LANStatus";
+
+			} else if (name.startsWith("ppp")) {
+				name  = "wan_sticky";
+				label = "WANStatus";
+
+			} else if (name.startsWith("ra")) {
+				name  = "wl_sticky";
+				label = "WlStatus";
+
+			} else {
+				//continue;
+			}
+
+			var ipaddr  = iterface.ip || "0.0.0.0";
+			var netmask = iterface.netmask || "0.0.0.0";
+			var macaddr = iterface.mac || "00:00:00:00:00:00"
+
+			var html = '';
+			html += '<legend>' + T(label) + '</legend>';
+			html += '<dl>';
+
+			html += tableLine("odd",  T('NetIPAddress'), ipaddr);
+			//html += tableLine("odd",  T('NetSubnetMask'), netmask);
+
+			if (iterface.gateway) {
+				html += tableLine("even",  T('NetGateway'),  iterface.gateway);
+
+			} else {
+				html += tableLine("even",  T('NetMACAddress'),  macaddr);
+			}
+			//html += tableLine("odd", T('Receive') + "/" + T('Send'), iterface.rx + " / " + iterface.tx);
+
+			if (name == "wl_sticky") {
+				var ssid 	= wlan.ssid || "";
+				var address = wlan.address || "00:00:00:00:00:00";
+				var quality = wlan.quality || 0;
+				var bitrate = wlan.bitrate || 0;
+				html += tableLine("even", T('WlESSID'),	  ssid   + ' (' + address + ')' );
+				html += tableLine("odd",  T('WlQuality'), quality + ' (' + bitrate + 'Mb/s)' );
+			}
+			html += '</dl>\n';
+			$('#' + name).html(html).show();
+		}
+	}
+
+	function formatUptimePart(part) {
+		var value = Math.floor(part)
+		if (value < 10) {
+			return "0" + value
+		} else {
+			return value
+		}
+	}
+
+	function formatUptime(uptime) {
+		if (!uptime) {
+			return "-1";
+
+		} else if (uptime < 3600) {
+			return formatUptimePart(uptime / 60) + "m " +
+			 formatUptimePart(uptime % 60) + "s"
+
+		} else if (uptime < 3600 * 24) {
+			return formatUptimePart(uptime / 3600) + "h " +
+			 formatUptimePart((uptime % 3600) / 60) + "m " + 
+			 formatUptimePart(uptime % 60) + "s "
+
+		} else {
+			return formatUptimePart(uptime / (3600 * 24)) + "d " +
+			 formatUptimePart((uptime % (3600 * 24)) / 3600) + "h " +
+			 formatUptimePart((uptime % 3600) / 60) + "m " +
+			 formatUptimePart(uptime % 60) + "s "
+		}
+	}
+
+	function UpdateVersionStatus(params) {
+		$('#device_version').html(params.device_version || "0.00.000");
+		$('#device_model'  ).html(params.device_model   || "iNode");
+		$('#device_name'   ).html(params.device_name    || "iNode");
+		$('#device_time'   ).html(params.device_time    || "0000-00-00 00:00:00");
+		$('#device_memmory').html(params.device_memmory || "");
+		$('#device_cpu'    ).html(params.device_cpu     || "");		
+		$('#device_storage').html(params.device_storage || "");	
+		$('#device_root'   ).html(params.device_root    || "");	
+		$('#device_url'    ).html(params.device_url     || "");	
+		$('#device_time'   ).html(params.device_time    || "");	
+		$('#device_uptime' ).html(formatUptime(params.device_uptime) || "");	
+
+	}
+
+	$(document).ready(function() {
+		// $translate(document.body)
+
+		var url = "http://192.168.31.100/app/monitor/webconsole.lua";
+		$.get(url, function(result) {
+			OnPageLoad(result || {})
+		});
+	})
+
+  </script>
+</head>
+<body >
+
+<div id="wrapper" class="form-wrapper">
+  <form method="get">
+    <fieldset class="block">
+	  <legend>设备信息</legend>
+	  <dl>
+		<dt><label class="label">设备名称:</label>
+			<label class="value" id="device_name"></label></dt>
+
+		<dt><label class="label">内存:</label>
+			<label class="value" id="device_memmory"></label></dt>
+
+		<dt><label class="label">处理器:</label>
+			<label class="value" id="device_cpu"></label></dt>
+
+		<dt><label class="label">设备型号:</label>
+			<label class="value" id="device_model"></label></dt>
+
+		<dt><label class="label">固件版本:</label>
+			<label class="value" id="device_version"></label></dt>
+
+		<dt><label class="label">存储:</label>
+			<label class="value" id="device_storage"></label></dt>
+
+		<dt><label class="label">根目录:</label>
+			<label class="value" id="device_root"></label></dt>
+
+		<dt><label class="label">根服务:</label>
+			<label class="value" id="device_url"></label></dt>
+
+		<dt><label class="label">设备时间:</label>
+			<label class="value" id="device_time"></label></dt>
+
+		<dt><label class="label">设备启动时间:</label>
+			<label class="value" id="device_uptime"></label></dt>
+
+	  </dl>
+    </fieldset>
+
+	<fieldset class="block" id="eth_sticky" style="display:none"></fieldset>
+	<fieldset class="block" id="wl_sticky"  style="display:none"></fieldset>
+	<fieldset class="block" id="wan_sticky" style="display:none"></fieldset>
+  </form>
+</div>
+
+<footer id="footer"></footer>
+</body>
+</html>

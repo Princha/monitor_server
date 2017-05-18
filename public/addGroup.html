@@ -1,0 +1,26 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>监控</title>
+    <link rel="stylesheet" type="text/css" href="./stylesheets/styles.css">
+    <script type="text/javascript" src="./javascripts/jquery-3.2.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table_name').val(Date.now())
+        });
+    </script>
+</head>
+
+<body>
+    <form action="/groups/add" method="post">
+        Group name:<br><br>
+        <input type="text" name="name" value="">
+        <br><br> table name:<br><br>
+        <input id="table_name" type="text" name="table_name" readonly="readonly" value="192.168.31.110">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>
